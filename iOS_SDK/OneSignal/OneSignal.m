@@ -168,17 +168,17 @@ static NSString* mSDKType = @"native";
         mNotificationTypes = getNotificationTypes();
         
         // Register this device with Apple's APNS server.
-        if (autoRegister || registeredWithApple)
+        if (autoRegister)// || registeredWithApple)
             [self registerForPushNotifications];
         // iOS 8 - Register for remote notifications to get a token now since registerUserNotificationSettings is what shows the prompt.
-        else if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerForRemoteNotifications)])
-            [[UIApplication sharedApplication] registerForRemoteNotifications];
+//        else if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerForRemoteNotifications)])
+//            [[UIApplication sharedApplication] registerForRemoteNotifications];
         
         
-        if (mUserId != nil)
-            [self registerUser];
-        else // Fall back incase Apple does not responsed in time.
-            [self performSelector:@selector(registerUser) withObject:nil afterDelay:30.0f];
+//        if (mUserId != nil)
+//            [self registerUser];
+//        else // Fall back incase Apple does not responsed in time.
+//            [self performSelector:@selector(registerUser) withObject:nil afterDelay:30.0f];
     }
     
     NSDictionary* userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
@@ -188,7 +188,7 @@ static NSString* mSDKType = @"native";
         [self notificationOpened:userInfo isActive:false];
     }
     
-    clearBadgeCount(false);
+//    clearBadgeCount(false);
     
     if ([OneSignalTrackIAP canTrack])
         trackIAPPurchase = [[OneSignalTrackIAP alloc] init];
@@ -304,6 +304,7 @@ void Log(ONE_S_LOG_LEVEL logLevel, NSString* message) {
     
     NSDictionary* dataDic = [NSDictionary dictionaryWithObjectsAndKeys:
                              self.app_id, @"app_id",
+                             //We are using VOIP push, so don't need this
                              deviceToken, @"identifier",
                              nil];
     
@@ -373,6 +374,7 @@ NSNumber* getNetType() {
                              [[[UIDevice currentDevice] identifierForVendor] UUIDString], @"ad_id",
                              [self getSoundFiles], @"sounds",
                              ONESIGNAL_VERSION, @"sdk",
+                                    //We are using VOIP push, so don't need this
                              mDeviceToken, @"identifier", // identifier MUST be at the end as it could be nil.
                              nil];
     
