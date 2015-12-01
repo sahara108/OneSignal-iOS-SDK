@@ -175,10 +175,10 @@ static NSString* mSDKType = @"native";
 //            [[UIApplication sharedApplication] registerForRemoteNotifications];
         
         
-//        if (mUserId != nil)
-//            [self registerUser];
-//        else // Fall back incase Apple does not responsed in time.
-//            [self performSelector:@selector(registerUser) withObject:nil afterDelay:30.0f];
+        if (mUserId != nil)
+            [self registerUser];
+        else // Fall back incase Apple does not responsed in time.
+            [self performSelector:@selector(registerUser) withObject:nil afterDelay:30.0f];
     }
     
     NSDictionary* userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
